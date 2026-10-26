@@ -1,0 +1,43 @@
+{
+  "nome": "coracao_bovino_01",
+  "numero_projecoes": 50,
+
+  "angulos": {
+    "tipo": "uniforme",
+    "inicial_graus": 0.0,
+    "total_graus": 360.0,
+    "sinal": -1.0
+  },
+
+  "geometria": {
+    "distancia_fonte_orgao_mm": 655.0,
+    "distancia_orgao_detector_mm": 190.0
+  },
+
+  "orientacao": {
+    "rotacao_imagem_90": 0
+  },
+
+  "processamento": {
+    "fator_reducao": 4,
+    "percentil_inferior": 0.5,
+    "percentil_superior": 99.5
+  },
+
+  "volume": {
+    "tamanho_voxels": 256,
+    "extensao_mm": 220.0
+  },
+
+  "reconstrucao": {
+    "algoritmo": "SIRT3D_CUDA",
+    "iteracoes": 15,
+    "restricao_minima": 0.0
+  },
+
+  "alinhamento": {
+    "avaliar": true,
+    "aplicar_correcao": false,
+    "referencia": "moeda"
+  }
+}

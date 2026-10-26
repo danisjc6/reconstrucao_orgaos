@@ -1,0 +1,36 @@
+# Ambientes Python/Conda
+.venv/
+venv/
+env/
+miniconda3/
+anaconda3/
+.conda/
+
+# Instaladores do Miniconda
+[Mm]iniconda*.sh
+
+# Cache Python
+__pycache__/
+*.py[cod]
+
+# Configurações locais do VS Code
+.vscode/
+
+# DICOMs de todos os órgãos
+dados/*/dicom/
+*.dcm
+*.dicom
+
+# Resultados gerados
+resultados/
+
+# Volumes e arquivos grandes
+*.npy
+*.npz
+*.nii
+*.nii.gz
+
+# Arquivos temporários
+*.log
+.DS_Store
+Thumbs.db
