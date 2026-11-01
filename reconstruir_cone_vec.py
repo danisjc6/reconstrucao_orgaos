@@ -37,6 +37,16 @@ def parse_arguments():
         help="Nome da pasta desta execução."
     )
 
+    parser.add_argument(
+        "--iterations",
+        type=int,
+        default=None,
+        help=(
+            "Sobrescreve apenas nesta execução o número "
+            "de iterações definido no config.json."
+        )
+    )
+
     return parser.parse_args()
 
 
@@ -139,7 +149,8 @@ def prepare_corrections(
     records,
     downsample_factor,
     row_spacing,
-    col_spacing
+    col_spacing,
+    rotation_k
 ):
     corrections = []
 
@@ -166,8 +177,31 @@ def prepare_corrections(
             # Para fazer o raio do pixel observado corresponder à
             # posição prevista, o centro do detector é deslocado pelo
             # valor oposto ao residual.
-            correction_col_original_px = -residual_x
-            correction_row_original_px = -residual_y
+            # Correção na orientação original:
+            original_col_correction = -residual_x
+            original_row_correction = -residual_y
+
+            # Transforma a correção conforme np.rot90 aplicado às projeções.
+            rotation_k_normalized = rotation_k % 4
+
+            if rotation_k_normalized == 0:
+                correction_col_original_px = original_col_correction
+                correction_row_original_px = original_row_correction
+            elif rotation_k_normalized == 1:
+                # 90° anti-horário:
+                # nova coluna = antiga linha
+                # nova linha = -antiga coluna
+                correction_col_original_px = original_row_correction
+                correction_row_original_px = -original_col_correction
+            elif rotation_k_normalized == 2:
+                correction_col_original_px = -original_col_correction
+                correction_row_original_px = -original_row_correction
+            else:
+                # 90° horário:
+                # nova coluna = -antiga linha
+                # nova linha = antiga coluna
+                correction_col_original_px = -original_row_correction
+                correction_row_original_px = original_col_correction
         else:
             correction_col_original_px = 0.0
             correction_row_original_px = 0.0
@@ -413,6 +447,16 @@ def main():
 
     config, config_path = base.load_config(experiment_dir)
 
+    if args.iterations is not None:
+        if args.iterations < 1:
+            raise ValueError(
+                "--iterations deve ser maior ou igual a 1."
+            )
+
+        config["reconstrucao"]["iteracoes"] = (
+            args.iterations
+        )
+
     output_dir = base.create_output_dir(
         config,
         args.run_name
@@ -453,7 +497,8 @@ def main():
         records,
         downsample_factor,
         row_spacing,
-        col_spacing
+        col_spacing,
+        rotation_k
     )
 
     correction_table_path = (

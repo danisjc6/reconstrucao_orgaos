@@ -1,0 +1,9 @@
+marcador,modelo,conjunto,n,rms_2d_px_reduzidos,X_mm,Y_mm,Z_mm,u0_px,v0_px
+cranial,individual,treino,21,11.8293,-45.0491,67.3226,-80.5207,337.5000,425.0000
+cranial,individual,validacao,4,10.4137,-45.0491,67.3226,-80.5207,337.5000,425.0000
+cranial,conjunto,treino,21,10.8362,-44.8076,67.3011,-80.5177,339.7237,425.0000
+cranial,conjunto,validacao,4,9.7309,-44.8076,67.3011,-80.5177,339.7237,425.0000
+caudal,individual,treino,22,12.3102,-34.4336,-55.7776,78.2266,337.5000,425.0000
+caudal,individual,validacao,4,8.9731,-34.4336,-55.7776,78.2266,337.5000,425.0000
+caudal,conjunto,treino,22,12.8731,-34.8666,-55.5313,78.2262,339.7237,425.0000
+caudal,conjunto,validacao,4,8.2193,-34.8666,-55.5313,78.2262,339.7237,425.0000
