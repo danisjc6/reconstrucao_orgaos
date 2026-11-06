@@ -1,0 +1,48 @@
+{
+  "geometria": {
+    "DSO_mm": 640,
+    "DSD_mm": 835,
+    "nDetector": [
+      851,
+      676
+    ],
+    "dDetector_mm": [
+      0.34486,
+      0.34486
+    ],
+    "nVoxel": [
+      256,
+      256,
+      256
+    ],
+    "sVoxel_mm": [
+      220,
+      150,
+      150
+    ]
+  },
+  "aviso": "Imagens CR processadas: preparações exploratórias, não quantitativas",
+  "referencia_A": "/home/usuario/Documentos/reconstrucao_orgaos/dados/bexiga_urinaria_01/reconstrucoes/tigre/teste_fdk_fov150/volume_fdk_exploratorio.npy",
+  "B_linear_global": {
+    "percentis_globais": [
+      0.1,
+      99.9
+    ],
+    "limites_cr": [
+      0.0,
+      4093.625
+    ],
+    "transformacao": "clip((hi - CR)/(hi - lo), 0, 1)"
+  },
+  "C_linear_robusta": {
+    "percentis_globais": [
+      1.0,
+      99.0
+    ],
+    "limites_cr": [
+      0.0,
+      3225.0
+    ],
+    "transformacao": "clip((hi - CR)/(hi - lo), 0, 1)"
+  }
+}

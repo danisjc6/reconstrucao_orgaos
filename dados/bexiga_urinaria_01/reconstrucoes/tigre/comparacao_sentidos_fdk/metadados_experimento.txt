@@ -1,0 +1,7 @@
+Comparacao exploratoria FDK: angulos positivos versus negativos
+Projecoes: /home/usuario/Documentos/reconstrucao_orgaos/dados/bexiga_urinaria_01/reconstrucoes/tigre/preparacao/projecoes_exploratorias_log.npy
+Angulos: /home/usuario/Documentos/reconstrucao_orgaos/dados/bexiga_urinaria_01/reconstrucoes/tigre/preparacao/angulos_rad.npy
+DSO=640 mm; DSD=835 mm; detector=851x676; pixel=0.34486 mm
+Volume=256x256x256; FOV=150 mm; COR=0; offDetector=0
+ATENCAO: radiografias CR nao calibradas como atenuacao.
+Nao foi feita calibracao geometrica independente nem alteracao dos DICOM.

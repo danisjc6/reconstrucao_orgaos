@@ -1,0 +1,32 @@
+{
+  "algoritmo": "TIGRE SIRT",
+  "iteracoes": 20,
+  "projecoes": "/home/usuario/Documentos/reconstrucao_orgaos/dados/bexiga_urinaria_01/reconstrucoes/tigre/preparacao/projecoes_exploratorias_log.npy",
+  "angulos": "/home/usuario/Documentos/reconstrucao_orgaos/dados/bexiga_urinaria_01/reconstrucoes/tigre/preparacao/angulos_rad.npy",
+  "sentido_angular": "positivo",
+  "DSO_mm": 640.0,
+  "DSD_mm": 835.0,
+  "pixel_detector_reduzido_mm": 0.34486,
+  "detector_px": [
+    851,
+    676
+  ],
+  "volume_voxels": [
+    256,
+    256,
+    256
+  ],
+  "campo_mm": [
+    150.0,
+    150.0,
+    150.0
+  ],
+  "COR_mm": 0.0,
+  "offDetector_mm": [
+    0.0,
+    0.0
+  ],
+  "observacao": "Projecoes CR exploratorias, nao calibradas em atenuacao; resultado nao quantitativo.",
+  "min": 0.0,
+  "max": 0.147073894739151
+}
