@@ -5,8 +5,9 @@ import numpy as np
 from matplotlib.widgets import Slider
 
 
-VOLUME_PATH = Path("resultados/volume_coracao.npy")
-
+VOLUME_PATH = Path(
+    "resultados/estomago_canino_01/teste_tigre_sirt15/volume.npy"
+)
 
 def normalizar(volume):
     minimo = np.percentile(volume, 1)

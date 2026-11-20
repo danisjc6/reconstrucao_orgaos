@@ -294,11 +294,6 @@ def preprocess(
     return projections
 
 
-
-# ============================================================
-# VISUALIZAÇÃO DAS PROJEÇÕES
-# ============================================================
-
 # ============================================================
 # VISUALIZAÇÃO DAS PROJEÇÕES
 # ============================================================
@@ -513,20 +508,73 @@ def reconstruct(
         origin_detector
     )
 
+    # Teste experimental: ajuste global do eixo da traqueia.
+    if config.get("geometria", {}).get("usar_eixo_esferas", False):
+        geo = astra.geom_2vec(proj_geom)
+        vetores = np.array(geo["Vectors"], dtype=np.float64, copy=True)
+
+        # Ajuste obtido excluindo apenas as marcações de 48.dcm.
+        inclinacao = np.deg2rad(-0.418)
+        delta_mm = (1357.98 - (2704 - 1) / 2) * 0.086215
+
+        u = vetores[:, 6:9].copy()   # direção das colunas
+        v = vetores[:, 9:12].copy()  # direção das linhas
+        c, s = np.cos(inclinacao), np.sin(inclinacao)
+
+        # Os pixels da série são quadrados, inclusive após a redução.
+        u_novo = c * u + s * v
+        v_novo = -s * u + c * v
+
+        vetores[:, 6:9] = u_novo
+        vetores[:, 9:12] = v_novo
+
+        # Desloca o centro do detector no modelo para que o eixo
+        # apareça à direita do centro da imagem, como no ajuste.
+        u_unitario = u_novo / np.linalg.norm(u_novo, axis=1, keepdims=True)
+        vetores[:, 3:6] -= delta_mm * u_unitario
+
+        proj_geom = astra.create_proj_geom(
+            "cone_vec",
+            geo["DetectorRowCount"],
+            geo["DetectorColCount"],
+            vetores,
+        )
+
+
+        print(
+            f"Geometria cone_vec: eixo +{delta_mm:.3f} mm no detector; "
+            "inclinação -0,418°"
+        )
+
     half_extent = volume_extent / 2.0
 
     vol_geom = astra.create_vol_geom(
         volume_size,
         volume_size,
         volume_size,
-        -half_extent,
-        half_extent,
-        -half_extent,
-        half_extent,
-        -half_extent,
-        half_extent
+        -half_extent, half_extent,
+        -half_extent, half_extent,
+        -half_extent, half_extent,
     )
 
+    # Exporta apenas o teste nominal da traqueia para o TIGRE.
+    if (
+        config["nome"] in {"traqueia_caprina_01", "estomago_canino_01"}
+        and proj_geom["type"] == "cone"
+    ):
+        pasta = Path("resultados") / config["nome"] / "entrada_tigre_nominal"
+        pasta.mkdir(parents=True, exist_ok=True)
+
+        np.savez(
+            pasta / "entrada.npz",
+            projecoes=np.asarray(projections, dtype=np.float32),
+            angulos_rad=angles_rad,
+            pixel_mm=[detector_row_spacing, detector_col_spacing],
+            dso=source_origin,
+            dsd=source_origin + origin_detector,
+        )
+        print("Entrada TIGRE exportada:", pasta / "entrada.npz")
+            
     # ASTRA espera:
     # (linhas do detector, ângulos, colunas do detector)
     astra_projections = np.transpose(
